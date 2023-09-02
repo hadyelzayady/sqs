@@ -4,50 +4,39 @@ import jetValidator from 'jet-validator';
 import Paths from '../constants/Paths';
 import User from '@src/models/User';
 import UserRoutes from './UserRoutes';
+import QueueRoutes from './QueueRoutes';
+import SqsQueue from '@src/models/SqsQueue';
 
-
-// **** Variables **** //
-
-const apiRouter = Router(),
-  validate = jetValidator();
-
-
-// ** Add UserRouter ** //
+const apiRouter = Router();
+const validate = jetValidator();
 
 const userRouter = Router();
+const queueRouter = Router();
 
-// Get all users
-userRouter.get(
-  Paths.Users.Get,
-  UserRoutes.getAll,
+userRouter.get(Paths.Users.Get, UserRoutes.getAll);
+
+userRouter.post(Paths.Users.Add, validate(['user', User.isUser]), UserRoutes.add);
+
+userRouter.put(Paths.Users.Update, validate(['user', User.isUser]), UserRoutes.update);
+
+userRouter.delete(Paths.Users.Delete, validate(['id', 'number', 'params']), UserRoutes.delete);
+
+/*
+ * SQS Queue
+ * */
+
+queueRouter.get(Paths.Queues.Get, QueueRoutes.getAll);
+queueRouter.post(Paths.Queues.Add, validate(['name']), QueueRoutes.add);
+
+queueRouter.put(
+  Paths.Queues.Update,
+  validate(['queue', SqsQueue.isSqsQueueUpdate]),
+  QueueRoutes.update
 );
 
-// Add one user
-userRouter.post(
-  Paths.Users.Add,
-  validate(['user', User.isUser]),
-  UserRoutes.add,
-);
+queueRouter.delete(Paths.Queues.Delete, validate(['id', 'number', 'params']), QueueRoutes.delete);
 
-// Update one user
-userRouter.put(
-  Paths.Users.Update,
-  validate(['user', User.isUser]),
-  UserRoutes.update,
-);
-
-// Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
-  validate(['id', 'number', 'params']),
-  UserRoutes.delete,
-);
-
-// Add UserRouter
 apiRouter.use(Paths.Users.Base, userRouter);
-apiRouter.use(Paths.Users.Base, userRouter);
-
-
-// **** Export default **** //
+apiRouter.use(Paths.Queues.Base, queueRouter);
 
 export default apiRouter;
