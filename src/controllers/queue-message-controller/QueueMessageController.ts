@@ -1,3 +1,4 @@
+import { ISqsMessageResource } from '../types/SqsMessage/ISqsMessageResource';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
 import { IReq, IRes } from '../types/express/misc';
@@ -6,7 +7,6 @@ import MessageQueueSerivce from '@src/services/MessageQueueService';
 import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
 import { IDeQueueMessageRequest } from '../types/SqsMessage/DeQueueMessageRequest';
 import { IDeleteMessageRequest } from '../types/SqsMessage/IDeleteMessageRequest';
-import { ISqsMessageResource } from '../types/SqsMessage/ISqsMessageResource';
 
 async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
   const inQueuMessageRequest = req.body;

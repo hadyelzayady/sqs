@@ -1,5 +1,5 @@
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
-import SqsMessage, { ISqsMessage } from '@src/models/SqsMessage';
+import { ISqsMessage } from '@src/models/SqsMessage';
 import { RouteError } from '@src/other/classes';
 import SqsMessageRepo from '@src/repos/SqsMessageRepo';
 import { SQSQUEUE_NOT_FOUND_ERR } from './SqsQueueService';
@@ -7,7 +7,9 @@ import { IInQueueMessageRequest } from '@src/controllers/types/SqsMessage/InQueu
 import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
 import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
 import { Optional } from '@src/types/Generics';
+import { setTimeout } from 'timers/promises';
 
+let x = 0;
 //TODO make distributed queue message service
 function inQueueMessage(sqsMessage: IInQueueMessageRequest): Promise<ISqsMessage> {
   const inQueueMessage = SqsMessageMapper.InQueueRequestToModel(sqsMessage);
@@ -21,6 +23,12 @@ async function deQueueMessage(queueId: string): Promise<Optional<ISqsMessage>> {
   if (queueHasInprogressMessages) {
     return;
   }
+  if (x % 2 === 0) {
+    console.log('waiting');
+    x = x + 1;
+    await setTimeout(10000);
+  }
+
   const queueItem = SqsMessageRepo.deQueue(queueId);
   return queueItem;
 }
