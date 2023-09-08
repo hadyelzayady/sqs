@@ -1,0 +1,50 @@
+# Get Queues
+GET http://localhost:3000/api/queues/all
+
+# Get Messages in Queue
+GET http://localhost:3000/api/queues/64f327bb7ebd0f32d0cf8056/messages
+
+# Produce Message
+#*************************************************************************
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 1",
+  "sequence": 1
+}
+
+# Produce Message
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 2",
+  "sequence": 2
+}
+
+# Produce Message
+POST http://localhost:3000/api/messages/produce
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056",
+  "body": "hell world 3",
+  "sequence": 3
+}
+
+#*************************************************************************
+# Consume Message
+POST http://localhost:3000/api/messages/consume
+Content-Type: application/json
+
+{
+  "queueId": "64f327bb7ebd0f32d0cf8056"
+}
+
+#*************************************************************************
+# Delete Message
+DELETE http://localhost:3000/api/messages/64f38bb8d5be29897a44e333/delete
+Content-Type: application/json

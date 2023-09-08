@@ -7,7 +7,7 @@
     "lint:tests": "npx eslint --ext .ts spec/",
     "start": "node -r module-alias/register ./dist --env=production",
     "dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json",
+    "test": "nodemon  --inspect --config ./spec/nodemon.json",
     "test:no-reloading": "npx ts-node --files -r tsconfig-paths/register ./spec"
   },
   "nodemonConfig": {
@@ -18,7 +18,7 @@
     "ignore": [
       "src/public"
     ],
-    "exec": "./node_modules/.bin/ts-node --files -r tsconfig-paths/register ./src"
+    "exec": "./node_modules/.bin/ts-node-dev --inspect --files -r tsconfig-paths/register ./src"
   },
   "_moduleAliases": {
     "@src": "dist"
@@ -63,6 +63,7 @@
     "nodemon": "^3.0.1",
     "supertest": "^6.3.3",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
