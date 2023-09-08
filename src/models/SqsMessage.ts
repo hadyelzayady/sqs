@@ -1,7 +1,7 @@
 import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
 import { Optional } from '@src/types/Generics';
 import mongoose, { Types } from 'mongoose';
-import { ITimestampModel } from './ITimesatmpModel';
+import { ITimestampModel } from './ITimestampModel';
 
 const INVALID_CONSTRUCTOR_PARAM = `nameOrObj arg must a string or an object with the appropriate sqsQueue keys.`;
 
