@@ -1,7 +1,12 @@
-# Get Queues
+#*************************************************************************
+
+# Queue Apis
+
+#*************************************************************************
+# List Queues
 GET http://localhost:3000/api/queues/all
 
-# Create Queues
+# Create Queue
 POST http://localhost:3000/api/queues/add
 Content-Type: application/json
 
@@ -9,10 +14,18 @@ Content-Type: application/json
   "name": "myqueue"
 }
 
-# Get Messages in Queue
+
+#*************************************************************************
+
+# Get Messages
+
+#*************************************************************************
 GET http://localhost:3000/api/queues/64f327bb7ebd0f32d0cf8056/messages
 
+#*************************************************************************
+
 # Produce Message
+
 #*************************************************************************
 POST http://localhost:3000/api/messages/produce
 Content-Type: application/json
@@ -41,7 +54,10 @@ Content-Type: application/json
 }
 
 #*************************************************************************
+
 # Consume Message
+
+#*************************************************************************
 POST http://localhost:3000/api/messages/consume
 Content-Type: application/json
 
@@ -50,6 +66,9 @@ Content-Type: application/json
 }
 
 #*************************************************************************
+
 # Delete Message
-DELETE http://localhost:3000/api/messages/64fb093a7a3642739cb7aec3/delete
+
+#*************************************************************************
+DELETE http://localhost:3000/api/messages/64fb2aeefe3f0da04d8ecbe2/delete
 Content-Type: application/json
