@@ -44,12 +44,15 @@ async function queueHasInProgressMessages(queueId: string): Promise<boolean> {
 async function deQueue(queueId: string): Promise<Optional<ISqsMessage>> {
   const result = await SqsQueueMessageModel.findOneAndUpdate(
     {
-      queueId,
-      status: SqsMessageStatusEnum.IN_QUEUE
+      queueId
     },
     { $set: { status: SqsMessageStatusEnum.IN_PROCESS } },
-    { sort: { createdAt: 1 }, returnDocument: 'after' }
+    { sort: { createdAt: 1 }, returnDocument: 'before' }
   );
+  if (!result || result?.status === SqsMessageStatusEnum.IN_PROCESS) {
+    return null;
+  }
+  result.status = SqsMessageStatusEnum.IN_PROCESS;
   return result;
 }
 

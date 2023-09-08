@@ -19,10 +19,6 @@ function inQueueMessage(sqsMessage: IInQueueMessageRequest): Promise<ISqsMessage
 
 async function deQueueMessage(queueId: string): Promise<Optional<ISqsMessage>> {
   //BUG not atomic operation which may cause wrong message return;
-  const queueHasInprogressMessages = await SqsMessageRepo.queueHasInProgressMessages(queueId);
-  if (queueHasInprogressMessages) {
-    return;
-  }
   if (x % 2 === 0) {
     console.log('waiting');
     x = x + 1;
