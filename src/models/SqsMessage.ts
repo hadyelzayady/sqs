@@ -1,5 +1,4 @@
 import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
-import { Optional } from '@src/types/Generics';
 import mongoose, { Types } from 'mongoose';
 import { ITimestampModel } from './ITimestampModel';
 
