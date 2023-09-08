@@ -7,7 +7,7 @@ import { IInQueueMessageRequest } from '@src/controllers/types/SqsMessage/InQueu
 import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
 import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
 import { Optional } from '@src/types/Generics';
-import { setTimeout } from 'timers/promises';
+import { VISIBILITY_TIMEOUT } from '@src/constants/SqsMessageConfig';
 
 let x = 0;
 //TODO make distributed queue message service
@@ -18,14 +18,17 @@ function inQueueMessage(sqsMessage: IInQueueMessageRequest): Promise<ISqsMessage
 }
 
 async function deQueueMessage(queueId: string): Promise<Optional<ISqsMessage>> {
-  //BUG not atomic operation which may cause wrong message return;
-  if (x % 2 === 0) {
-    console.log('waiting');
-    x = x + 1;
-    await setTimeout(10000);
+  const queueItem = await SqsMessageRepo.deQueue(queueId);
+  if (queueItem) {
+    setTimeout(
+      async (queueId, messageId) => {
+        await SqsMessageRepo.updateStatus(queueId, messageId, SqsMessageStatusEnum.IN_QUEUE);
+      },
+      VISIBILITY_TIMEOUT,
+      queueId,
+      queueItem._id as string
+    );
   }
-
-  const queueItem = SqsMessageRepo.deQueue(queueId);
   return queueItem;
 }
 

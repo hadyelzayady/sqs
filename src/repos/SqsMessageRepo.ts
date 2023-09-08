@@ -57,8 +57,22 @@ async function deQueue(queueId: string): Promise<Optional<ISqsMessage>> {
 }
 
 async function getAllByQueueId(queueId: string): Promise<ISqsMessage[]> {
-  const result = await SqsQueueMessageModel.find({ queueId: queueId });
+  const result = await SqsQueueMessageModel.find({ queueId: queueId }, undefined, {
+    sort: { createdAt: 1 }
+  });
   return result;
+}
+
+async function updateStatus(
+  queueId: string,
+  messageId: string,
+  status: SqsMessageStatusEnum
+): Promise<void> {
+  await SqsQueueMessageModel.updateOne(
+    { queueId: queueId, _id: messageId },
+    { $set: { status: status } }
+  );
+  return;
 }
 
 export default {
@@ -70,5 +84,6 @@ export default {
   exists,
   queueHasInProgressMessages,
   deQueue,
-  getAllByQueueId
+  getAllByQueueId,
+  updateStatus
 } as const;
