@@ -1,6 +1,14 @@
 # Get Queues
 GET http://localhost:3000/api/queues/all
 
+# Create Queues
+POST http://localhost:3000/api/queues/add
+Content-Type: application/json
+
+{
+  "name": "myqueue"
+}
+
 # Get Messages in Queue
 GET http://localhost:3000/api/queues/64f327bb7ebd0f32d0cf8056/messages
 
@@ -11,8 +19,7 @@ Content-Type: application/json
 
 {
   "queueId": "64f327bb7ebd0f32d0cf8056",
-  "body": "hell world 1",
-  "sequence": 1
+  "body": "hell world 1"
 }
 
 # Produce Message
@@ -21,8 +28,7 @@ Content-Type: application/json
 
 {
   "queueId": "64f327bb7ebd0f32d0cf8056",
-  "body": "hell world 2",
-  "sequence": 2
+  "body": "hell world 2"
 }
 
 # Produce Message
@@ -31,8 +37,7 @@ Content-Type: application/json
 
 {
   "queueId": "64f327bb7ebd0f32d0cf8056",
-  "body": "hell world 3",
-  "sequence": 3
+  "body": "hell world 3"
 }
 
 #*************************************************************************
@@ -46,5 +51,5 @@ Content-Type: application/json
 
 #*************************************************************************
 # Delete Message
-DELETE http://localhost:3000/api/messages/64f38bb8d5be29897a44e333/delete
+DELETE http://localhost:3000/api/messages/64fb093a7a3642739cb7aec3/delete
 Content-Type: application/json

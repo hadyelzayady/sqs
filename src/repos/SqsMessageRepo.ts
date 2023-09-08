@@ -48,7 +48,7 @@ async function deQueue(queueId: string): Promise<Optional<ISqsMessage>> {
       status: SqsMessageStatusEnum.IN_QUEUE
     },
     { $set: { status: SqsMessageStatusEnum.IN_PROCESS } },
-    { sort: { sequence: 1 } }
+    { sort: { createdAt: 1 }, returnDocument: 'after' }
   );
   return result;
 }

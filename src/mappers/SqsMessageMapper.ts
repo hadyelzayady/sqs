@@ -1,3 +1,4 @@
+import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
 import { ISqsMessageResource } from '@src/controllers/types/SqsMessage/ISqsMessageResource';
 import { IInQueueMessageRequest } from '@src/controllers/types/SqsMessage/InQueueMessageRequest';
 import { ISqsMessage } from '@src/models/SqsMessage';
@@ -7,16 +8,16 @@ function InQueueRequestToModel(message: IInQueueMessageRequest): ISqsMessage {
   return {
     queueId: new Types.ObjectId(message.queueId),
     body: message.body,
-    sequence: message.sequence,
-    id: ''
+    id: '',
+    status: SqsMessageStatusEnum.IN_QUEUE
   };
 }
 
 function toResource(message: ISqsMessage): ISqsMessageResource {
   return {
     id: message._id ?? '',
-    sequence: message.sequence,
-    body: message.body
+    body: message.body,
+    status: message.status
   };
 }
 

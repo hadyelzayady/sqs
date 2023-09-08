@@ -2,7 +2,7 @@ import { Router } from 'express';
 import jetValidator from 'jet-validator';
 
 import Paths from '../constants/Paths';
-import QueueController from './QueueController';
+import QueueController from './queue-controller/QueueController';
 import SqsQueue from '@src/models/SqsQueue';
 import QueueMessageController from './queue-message-controller/QueueMessageController';
 

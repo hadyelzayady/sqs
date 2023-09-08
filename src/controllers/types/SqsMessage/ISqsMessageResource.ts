@@ -1,5 +1,7 @@
+import { SqsMessageStatusEnum } from '@src/constants/SqsMessageStatus';
+
 export interface ISqsMessageResource {
   id: string;
   body: string;
-  sequence: number;
+  status: SqsMessageStatusEnum;
 }

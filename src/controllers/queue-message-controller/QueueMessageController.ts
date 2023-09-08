@@ -6,8 +6,9 @@ import MessageQueueSerivce from '@src/services/MessageQueueService';
 import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
 import { IDeQueueMessageRequest } from '../types/SqsMessage/DeQueueMessageRequest';
 import { IDeleteMessageRequest } from '../types/SqsMessage/IDeleteMessageRequest';
+import { ISqsMessageResource } from '../types/SqsMessage/ISqsMessageResource';
 
-async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes) {
+async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
   const inQueuMessageRequest = req.body;
   const result = await MessageQueueSerivce.inQueueMessage(inQueuMessageRequest);
 
@@ -15,7 +16,7 @@ async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes) {
   return res.status(HttpStatusCodes.OK).json(resource);
 }
 
-async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes) {
+async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
   const deQueuMessageRequest = req.body;
   const result = await MessageQueueSerivce.deQueueMessage(deQueuMessageRequest.queueId);
   if (!result) {
@@ -25,7 +26,7 @@ async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes) {
   return res.status(HttpStatusCodes.OK).json(resource);
 }
 
-async function deleteMessage(req: IReq<IDeleteMessageRequest>, res: IRes) {
+async function deleteMessage(req: IReq<IDeleteMessageRequest>, res: IRes<void>) {
   const messageId = req.params.messageId;
   await MessageQueueSerivce.delete(messageId);
   return res.status(HttpStatusCodes.OK).json();
