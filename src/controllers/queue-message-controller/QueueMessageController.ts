@@ -16,14 +16,14 @@ async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes<ISqsM
   return res.status(HttpStatusCodes.OK).json(resource);
 }
 
-async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
+async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes<ISqsMessageResource[]>) {
   const deQueuMessageRequest = req.body;
   const result = await MessageQueueSerivce.deQueueMessage(deQueuMessageRequest.queueId);
   if (!result) {
     return res.status(HttpStatusCodes.OK).end();
   }
-  const resource = SqsMessageMapper.toResource(result);
-  return res.status(HttpStatusCodes.OK).json(resource);
+  const resources = result.map(SqsMessageMapper.toResource);
+  return res.status(HttpStatusCodes.OK).json(resources);
 }
 
 async function deleteMessage(req: IReq<IDeleteMessageRequest>, res: IRes<void>) {

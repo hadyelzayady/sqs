@@ -1,3 +1,4 @@
+@queueId = 64fb2abffe3f0da04d8ecbde
 #*************************************************************************
 
 # Queue Apis
@@ -21,7 +22,7 @@ Content-Type: application/json
 # Get Messages
 
 #*************************************************************************
-GET http://localhost:3000/api/queues/64fb6c07195bd36a87d72580/messages
+GET http://localhost:3000/api/queues/{{queueId}}/messages
 
 #*************************************************************************
 
@@ -32,7 +33,7 @@ POST http://localhost:3000/api/messages/produce
 Content-Type: application/json
 
 {
-  "queueId": "64fb6c07195bd36a87d72580",
+  "queueId": "{{queueId}}",
   "body": "hell world 1"
 }
 
@@ -41,7 +42,7 @@ POST http://localhost:3000/api/messages/produce
 Content-Type: application/json
 
 {
-  "queueId": "64fb6c07195bd36a87d72580",
+  "queueId": "{{queueId}}",
   "body": "hell world 2"
 }
 
@@ -50,7 +51,7 @@ POST http://localhost:3000/api/messages/produce
 Content-Type: application/json
 
 {
-  "queueId": "64fb6c07195bd36a87d72580",
+  "queueId": "{{queueId}}",
   "body": "hell world 3"
 }
 
@@ -59,7 +60,7 @@ POST http://localhost:3000/api/messages/produce
 Content-Type: application/json
 
 {
-  "queueId": "64fb6c07195bd36a87d72580",
+  "queueId": "{{queueId}}",
   "body": "hell world 4"
 }
 
@@ -73,7 +74,7 @@ POST http://localhost:3000/api/messages/consume
 Content-Type: application/json
 
 {
-  "queueId": "64fb6c07195bd36a87d72580"
+  "queueId": "{{queueId}}"
 }
 
 #*************************************************************************

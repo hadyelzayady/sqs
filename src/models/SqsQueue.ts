@@ -1,5 +1,6 @@
 // **** Variables **** //
 
+import { Optional } from '@src/types/Generics';
 import mongoose from 'mongoose';
 
 const INVALID_CONSTRUCTOR_PARAM = `nameOrObj arg must a string or an object with the appropriate sqsQueue keys.`;
@@ -7,6 +8,7 @@ const INVALID_CONSTRUCTOR_PARAM = `nameOrObj arg must a string or an object with
 export interface ISqsQueue {
   id: number;
   name: string;
+  batchSize: Optional<number>;
 }
 
 function new_(
@@ -15,7 +17,8 @@ function new_(
 ): ISqsQueue {
   return {
     id: id ?? -1,
-    name: name ?? ''
+    name: name ?? '',
+    batchSize: undefined
   };
 }
 
@@ -47,6 +50,11 @@ const dataSchema = new mongoose.Schema<ISqsQueue>({
   name: {
     required: true,
     type: String
+  },
+  batchSize: {
+    required: true,
+    type: Number,
+    default: 10
   }
 });
 

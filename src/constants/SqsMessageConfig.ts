@@ -1,1 +1,1 @@
-export const VISIBILITY_TIMEOUT = 10_000; // in seconds
+export const VISIBILITY_TIMEOUT = 30_000; // in seconds
