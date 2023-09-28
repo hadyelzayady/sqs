@@ -1,14 +1,17 @@
-import { ISqsMessageResource } from '../types/SqsMessage/ISqsMessageResource';
 import HttpStatusCodes from '@src/constants/HttpStatusCodes';
 
-import { IReq, IRes } from '../types/express/misc';
-import { IInQueueMessageRequest } from '../types/SqsMessage/InQueueMessageRequest';
-import MessageQueueSerivce from '@src/services/MessageQueueService';
-import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
-import { IDeQueueMessageRequest } from '../types/SqsMessage/DeQueueMessageRequest';
 import { IDeleteMessageRequest } from '../types/SqsMessage/IDeleteMessageRequest';
+import { ISqsMessageResource } from '../types/SqsMessage/ISqsMessageResource';
+import { IInQueueMessageRequest } from '../types/SqsMessage/InQueueMessageRequest';
+import { IReq, IRes } from '../types/express/misc';
+import MessageQueueSerivce from '@src/services/MessageQueueService';
+import { IDeQueueMessageRequest } from '../types/SqsMessage/DeQueueMessageRequest';
+import SqsMessageMapper from '@src/mappers/SqsMessageMapper';
 
-async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
+async function inQueueMessage(
+  req: IReq<IInQueueMessageRequest>,
+  res: IRes<ISqsMessageResource>
+) {
   const inQueuMessageRequest = req.body;
   const result = await MessageQueueSerivce.inQueueMessage(inQueuMessageRequest);
 
@@ -16,7 +19,10 @@ async function inQueueMessage(req: IReq<IInQueueMessageRequest>, res: IRes<ISqsM
   return res.status(HttpStatusCodes.OK).json(resource);
 }
 
-async function deQueueMessage(req: IReq<IDeQueueMessageRequest>, res: IRes<ISqsMessageResource>) {
+async function deQueueMessage(
+  req: IReq<IDeQueueMessageRequest>,
+  res: IRes<ISqsMessageResource>
+) {
   const deQueuMessageRequest = req.body;
   const result = await MessageQueueSerivce.deQueueMessage(deQueuMessageRequest.queueId);
   if (!result) {

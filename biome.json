@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"organizeImports": {
-		"enabled": false
+		"enabled": true
 	},
 	"linter": {
 		"enabled": true,
@@ -15,7 +15,7 @@
 			"semicolons": "always",
 			"indentStyle": "space",
 			"trailingComma": "none",
-			"lineWidth": 80
+			"lineWidth": 88
 		}
 	},
 	"formatter": {
