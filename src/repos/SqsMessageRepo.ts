@@ -57,9 +57,13 @@ async function deQueue(queueId: string): Promise<Optional<ISqsMessage>> {
 }
 
 async function getAllByQueueId(queueId: string): Promise<ISqsMessage[]> {
-  const result = await SqsQueueMessageModel.find({ queueId: queueId }, undefined, {
-    sort: { createdAt: 1 }
-  });
+  const result = await SqsQueueMessageModel.find(
+    { queueId: queueId },
+    undefined,
+    {
+      sort: { createdAt: 1 }
+    }
+  );
   return result;
 }
 
