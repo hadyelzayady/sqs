@@ -9,6 +9,7 @@ import { SqsMessageStatusEnum } from "@src/constants/SqsMessageStatus";
 import { Optional } from "@src/types/Generics";
 import { VISIBILITY_TIMEOUT } from "@src/constants/SqsMessageConfig";
 import SqsQueueRepo from "@src/repos/SqsQueueRepo";
+import { DeleteResult } from "mongodb";
 
 //TODO make distributed queue message service
 function inQueueMessage(
@@ -63,6 +64,12 @@ async function getAllByQueueId(queueId: string): Promise<ISqsMessage[]> {
 	return SqsMessageRepo.getAllByQueueId(queueId);
 }
 
+async function messagesHandledSuccessfully(
+	queueId: string,
+): Promise<DeleteResult> {
+	return SqsMessageRepo.deleteVisible(queueId);
+}
+
 export default {
 	getAll,
 	updateOne,
@@ -70,4 +77,5 @@ export default {
 	inQueueMessage,
 	deQueueMessage,
 	getAllByQueueId,
+	messagesHandledSuccessfully,
 } as const;

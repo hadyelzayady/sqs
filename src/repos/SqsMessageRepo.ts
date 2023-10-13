@@ -125,6 +125,12 @@ async function updateStatusMany(
 	);
 	return;
 }
+async function deleteVisible(queueId: string) {
+	return await SqsQueueMessageModel.deleteMany({
+		queueId: queueId,
+		status: SqsMessageStatusEnum.IN_PROCESS,
+	});
+}
 
 export default {
 	getOne,
@@ -137,4 +143,5 @@ export default {
 	deQueue,
 	getAllByQueueId,
 	updateStatusMany,
+	deleteVisible,
 } as const;
